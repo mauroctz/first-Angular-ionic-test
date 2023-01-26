@@ -9,7 +9,7 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve --address 127.0.0.1 --port 8100"
   },
   "dependencies": {
     "@angular/common": "5.0.0",
@@ -32,8 +32,10 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.0",
+    "@ionic/cli-plugin-cordova": "1.6.2",
     "@ionic/cli-plugin-ionic-angular": "1.4.1",
-    "typescript": "2.4.2"
+    "typescript": "2.4.2",
+    "ws": "3.3.2"
   },
   "description": "An Ionic project"
 }

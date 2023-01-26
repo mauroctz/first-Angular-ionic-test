@@ -1,14 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      <span>{{title}}</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div class="current-page">
+    <span>Page:{{currentPage}}</span>
+  </div>
+  <card-user
+    *ngFor="let user of users"
+    [user]="user"
+    (openModalEvent)="openModal($event)"
+  ></card-user>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <pagination
+      [totalPages]="totalPages"
+      [isFirstPage]="isFirstPage()"
+      [isLastPage]="isLastPage()"
+      (prevPageEvent)="prevPage()"
+      (nextPageEvent)="nextPage()"
+    ></pagination>
+  </ion-toolbar>
+</ion-footer>
