@@ -1,0 +1,15 @@
+page-modal-user {
+  .toolbar-content {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ion-icon {
+
+      color: color($colors,light)
+
+    }
+  }
+}
+

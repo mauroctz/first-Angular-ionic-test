@@ -1,0 +1,22 @@
+<div class="container">
+  <button
+    [disabled]="isFirstPage"
+    ion-button
+    icon-start
+    round
+    (click)="prevPage()"
+  >
+    <ion-icon name="arrow-back"></ion-icon>
+    Prev
+  </button>
+  <button
+    [disabled]="isLastPage"
+    ion-button
+    icon-end
+    round
+    (click)="nextPage()"
+  >
+    Next
+    <ion-icon name="arrow-forward"></ion-icon>
+  </button>
+</div>
