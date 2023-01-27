@@ -3,6 +3,7 @@
 </ion-header>
 
 <ion-content padding>
+  <!-- <ng-template *ngIf="!isError&&!isLoading"> -->
   <div class="current-page">
     <span>Page:{{currentPage}}</span>
   </div>
@@ -11,6 +12,9 @@
     [user]="user"
     (openModalEvent)="openModal($event)"
   ></card-user>
+  <!-- </ng-template> -->
+  <!-- <h2 *ngIf="isLoading">Loading...</h2> -->
+  <!-- <h2 *ngIf="isError" #error>Ops... Qualcosa è andato storto.</h2> -->
 </ion-content>
 
 <ion-footer>

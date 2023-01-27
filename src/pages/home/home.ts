@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { NavController } from "ionic-angular";
+import { LoadingController, NavController } from "ionic-angular";
 import { User } from "../../interfaces/User";
 import { ModalController } from "ionic-angular";
 import { ModalUserPage } from "../modal-user/modal-user";
@@ -14,27 +14,41 @@ export class HomePage {
   users: Array<User> = [];
   totalPages: number;
   currentPage: number = 1;
+  loader: any;
+  isError: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public http: HttpClient,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController
   ) {}
 
   ngOnInit(): void {
+    this.presentLoading();
     this.getUsers();
   }
 
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    this.loader.present();
+  }
   async getUsers(page: number = 1) {
     try {
       const response = await this.http
         .get(`https://reqres.in/api/users?page=${page}`)
         .toPromise()
         .then((data) => data);
+
       this.users = response["data"];
       this.totalPages = response["total_pages"];
       this.currentPage = page;
+      this.loader.dismiss();
     } catch (error) {
+      this.loader.dismiss();
+      this.isError = true;
       throw new Error(error);
     }
   }
