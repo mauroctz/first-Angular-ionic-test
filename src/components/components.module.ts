@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CardUserComponent } from './card-user/card-user';
-import { PaginationComponent } from './pagination/pagination';
+import { NgModule } from "@angular/core";
+import { CardUserComponent } from "./card-user/card-user";
+import { PaginationComponent } from "./pagination/pagination";
+import { NavbarComponent } from "./navbar/navbar";
 @NgModule({
-	declarations: [CardUserComponent,
-    PaginationComponent],
-	imports: [],
-	exports: [CardUserComponent,
-    PaginationComponent]
+  declarations: [CardUserComponent, PaginationComponent, NavbarComponent],
+  imports: [],
+  exports: [CardUserComponent, PaginationComponent, NavbarComponent],
 })
 export class ComponentsModule {}

@@ -6,11 +6,14 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { HttpClientModule } from "@angular/common/http";
 import { MyApp } from "./app.component";
 import { CommonModule } from "@angular/common";
+//pages
 import { HomePage } from "../pages/home/home";
 import { UsersPage } from "./../pages/users/users";
 import { ModalUserPage } from "./../pages/modal-user/modal-user";
-import { PaginationComponent } from "./../components/pagination/pagination";
+//components
+import { NavbarComponent } from "../components/navbar/navbar";
 import { CardUserComponent } from "./../components/card-user/card-user";
+import { PaginationComponent } from "./../components/pagination/pagination";
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { CardUserComponent } from "./../components/card-user/card-user";
     ModalUserPage,
     CardUserComponent,
     PaginationComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,7 @@ import { CardUserComponent } from "./../components/card-user/card-user";
     CommonModule,
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, ModalUserPage],
+  entryComponents: [MyApp, HomePage, UsersPage, ModalUserPage],
   providers: [
     StatusBar,
     SplashScreen,

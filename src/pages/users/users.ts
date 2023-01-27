@@ -17,7 +17,6 @@ import { User } from "../../interfaces/User";
 export class UsersPage {
   title: String = "All users";
   users: Array<User> = [];
-  currentPage: number;
   constructor(public navCtrl: NavController, public http: HttpClient) {}
 
   ngOnInit() {
@@ -31,9 +30,8 @@ export class UsersPage {
         .toPromise()
         .then((data) => data);
       this.users = [...this.users, ...response["data"]];
-      this.currentPage = page;
-      if (this.currentPage < response["total_pages"])
-        this.getAllUsers(this.currentPage + 1);
+
+      if (page < response["total_pages"]) this.getAllUsers(page + 1);
     } catch (error) {
       throw new Error(error);
     }

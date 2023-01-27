@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { NavController } from "ionic-angular";
 import { User } from "../../interfaces/User";
-import { ModalController, NavParams } from "ionic-angular";
+import { ModalController } from "ionic-angular";
 import { ModalUserPage } from "../modal-user/modal-user";
 
 @Component({

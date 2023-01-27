@@ -1,9 +1,5 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      <span>{{title}}</span>
-    </ion-title>
-  </ion-navbar>
+  <navbar [title]="title"></navbar>
 </ion-header>
 
 <ion-content padding>
@@ -16,6 +12,7 @@
     (openModalEvent)="openModal($event)"
   ></card-user>
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <pagination
