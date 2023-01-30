@@ -1,10 +1,12 @@
-import { Component } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { LoadingController, NavController } from "ionic-angular";
-import { User } from "../../interfaces/User";
+import { ApiData } from "../../interfaces/Api";
+import { Component, Injectable } from "@angular/core";
+import { Loading, LoadingController, NavController } from "ionic-angular";
+import { User } from "../../interfaces/Api";
 import { ModalController } from "ionic-angular";
 import { ModalUserPage } from "../modal-user/modal-user";
+import { ApiService } from "../../services/api.service";
 
+@Injectable()
 @Component({
   selector: "page-home",
   templateUrl: "home.html",
@@ -14,14 +16,15 @@ export class HomePage {
   users: Array<User> = [];
   totalPages: number;
   currentPage: number = 1;
-  loader: any;
+  loader: Loading;
   isError: boolean = false;
+  apiResponse: ApiData;
 
   constructor(
     public navCtrl: NavController,
-    public http: HttpClient,
     public modalCtrl: ModalController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public api: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -35,22 +38,18 @@ export class HomePage {
     });
     this.loader.present();
   }
-  async getUsers(page: number = 1) {
-    try {
-      const response = await this.http
-        .get(`https://reqres.in/api/users?page=${page}`)
-        .toPromise()
-        .then((data) => data);
 
-      this.users = response["data"];
-      this.totalPages = response["total_pages"];
-      this.currentPage = page;
+  async getUsers(page: number = 1) {
+    this.loader.present();
+    const response = await this.api.getUsersByPage(page).then((data) => {
       this.loader.dismiss();
-    } catch (error) {
-      this.loader.dismiss();
-      this.isError = true;
-      throw new Error(error);
-    }
+      return data;
+    });
+    console.log("response", response);
+    this.users = response.data;
+    this.totalPages = response.total_pages;
+    this.currentPage = page;
+    this.apiResponse = response;
   }
 
   nextPage(): void {
@@ -89,6 +88,8 @@ export class HomePage {
           }
           return { ...u };
         });
+        this.apiResponse.data = [...this.users];
+        this.api.updateItemForage(this.apiResponse, this.currentPage);
       }
     });
   }

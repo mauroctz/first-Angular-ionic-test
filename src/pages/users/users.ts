@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
-import { User } from "../../interfaces/User";
+import { User } from "../../interfaces/Api";
 
 /**
  * Generated class for the UsersPage page.

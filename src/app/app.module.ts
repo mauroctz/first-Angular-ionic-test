@@ -1,3 +1,4 @@
+import { ApiService } from "./../services/api.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
@@ -43,6 +44,7 @@ import { PaginationComponent } from "./../components/pagination/pagination";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ApiService,
   ],
 })
 export class AppModule {}

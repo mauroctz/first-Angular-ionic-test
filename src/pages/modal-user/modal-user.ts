@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, ViewController } from "ionic-angular";
-import { User } from "../../interfaces/User";
+import { User } from "../../interfaces/Api";
 
 /**
  * Generated class for the ModalUserPage page.

@@ -5,3 +5,9 @@ export interface User {
   last_name: string;
   avatar: string;
 }
+
+export interface ApiData {
+  data: User[];
+  total_pages: number;
+  page: number;
+}
