@@ -1,14 +1,16 @@
-<svg height="160" width="160" viewBox="0 0 160 160">
-  <g>
-    <circle
-      cx=" 80"
-      cy="80"
-      r="60"
-      fill="transparent"
-      [stroke]="#6495ED"
-      stroke-width="30"
-      stroke-dasharray="80"
-    ></circle>
-    <text></text>
-  </g>
+<svg viewBox="0 0 100 100 " *ngIf="data">
+  <path
+    *ngFor="
+          let slice of data
+            | slicesWithCommandsAndOffset : radius : height : borderSize: borderRounded: size;
+          trackBy: trackByFn;
+          let index = index
+        "
+    [attr.fill]="slice.color"
+    [attr.d]="slice.commands"
+    [attr.transform]="'rotate(' + slice.offset + ')'"
+    (click)="slice.onClickCb ? slice.onClickCb() : null"
+  >
+    <title>{{ slice.label }}</title>
+  </path>
 </svg>

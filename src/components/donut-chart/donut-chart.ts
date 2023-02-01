@@ -9,46 +9,51 @@ import {
 @Component({
   selector: "donut-chart",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <svg [attr.viewBox]="'0 0 ' + viewBox + ' ' + viewBox" *ngIf="data">
-      <path
-        *ngFor="
-          let slice of data
-            | slicesWithCommandsAndOffset : radius : viewBox : borderSize;
-          trackBy: trackByFn;
-          let index = index
-        "
-        [attr.fill]="slice.color"
-        [attr.d]="slice.commands"
-        [attr.transform]="'rotate(' + slice.offset + ')'"
-        (click)="slice.onClickCb ? slice.onClickCb() : null"
-      >
-        <title>{{ slice.label }}</title>
-      </path>
-    </svg>
-  `,
+  templateUrl: "donut-chart.html",
 })
 export class DonutChartComponent implements OnInit {
   @Input() radius = 50;
-  @Input() viewBox = 100;
+  @Input() height = 100;
   @Input() borderSize = 20;
+  @Input() borderRounded: boolean = true;
   @Input() data: DonutSlice[] = [];
+  @Input() sort?: "asc" | "desc"; //asc or desc
+  @Input() size?: "full" | "half";
 
   ngOnInit() {
-    console.log("qui");
+    this.sortItems(this.sort);
+    this.calculatePercentages();
+  }
 
+  sortItems(sort) {
     this.data.sort((a, b) => {
-      return a.value > b.value ? -1 : a.value > b.value ? 1 : 0;
+      if (sort === "asc") {
+        return a.value < b.value ? -1 : a.value > b.value ? 1 : 0;
+      } else if (sort === "desc") {
+        return a.value > b.value ? -1 : a.value < b.value ? 1 : 0;
+      }
     });
-    const sum = this.data.reduce((accu, slice) => accu + slice.value, 0);
-    const test = this.data.map((slice) => {
-      let percent = Math.round((slice.value / sum) * 100);
-      console.log({ ...slice, percent: percent });
-      return { ...slice, percent: percent };
-    });
-    console.log("test", test);
-    this.data = [...test];
-    console.log(this.data);
+  }
+
+  calculatePercentages(): void {
+    let sum = this.data.reduce((acc, slice) => acc + slice.value, 0);
+    sum = this.size === "half" ? sum * 2 : sum;
+    let total_percent = 100;
+    this.data = [
+      ...this.data.map((slice) => {
+        let percent = Math.round((slice.value / sum) * total_percent);
+        if (percent === 0) {
+          total_percent = total_percent - 1;
+          percent = 1;
+        }
+        if (percent === 100) {
+          percent = total_percent - this.data.length + 1;
+        }
+        console.log(`percentage ${percent} - total ${total_percent}`);
+
+        return { ...slice, percent: percent };
+      }),
+    ];
   }
 
   trackByFn(index: number, slice: DonutSlice) {

@@ -6,8 +6,8 @@ donut-chart {
   svg {
     overflow: visible;
     transform-origin: center;
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    width: 300px;
+    height: 150;
   }
 
   path {
@@ -15,5 +15,6 @@ donut-chart {
     opacity: 1;
     cursor: pointer;
   }
+
 
 }
