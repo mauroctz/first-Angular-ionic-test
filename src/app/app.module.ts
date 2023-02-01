@@ -11,10 +11,14 @@ import { CommonModule } from "@angular/common";
 import { HomePage } from "../pages/home/home";
 import { UsersPage } from "./../pages/users/users";
 import { ModalUserPage } from "./../pages/modal-user/modal-user";
+import { ChartsPage } from "./../pages/charts/charts";
 //components
 import { NavbarComponent } from "../components/navbar/navbar";
 import { CardUserComponent } from "./../components/card-user/card-user";
 import { PaginationComponent } from "./../components/pagination/pagination";
+import { DonutChartComponent } from "../components/donut-chart/donut-chart";
+//pipe
+import { DonutChartPipe } from "./../components/donut-chart/donut-chart.pipe";
 
 @NgModule({
   declarations: [
@@ -22,9 +26,12 @@ import { PaginationComponent } from "./../components/pagination/pagination";
     HomePage,
     UsersPage,
     ModalUserPage,
+    ChartsPage,
     CardUserComponent,
     PaginationComponent,
     NavbarComponent,
+    DonutChartComponent,
+    DonutChartPipe,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,7 @@ import { PaginationComponent } from "./../components/pagination/pagination";
     CommonModule,
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, UsersPage, ModalUserPage],
+  entryComponents: [MyApp, HomePage, UsersPage, ModalUserPage, ChartsPage],
   providers: [
     StatusBar,
     SplashScreen,

@@ -6,16 +6,18 @@ import { NavController } from "ionic-angular";
 
 import { HomePage } from "../pages/home/home";
 import { UsersPage } from "../pages/users/users";
+import { ChartsPage } from "./../pages/charts/charts";
 @Component({
   templateUrl: "app.html",
 })
 export class MyApp {
   @ViewChild("content") nav: NavController;
-  rootPage: any = HomePage;
-  currentPage: any = HomePage;
+  rootPage: any = ChartsPage;
+  currentPage: any = ChartsPage;
   menuItems = [
     { title: "Home", component: HomePage },
     { title: "All Users", component: UsersPage },
+    { title: "Grafici", component: ChartsPage },
   ];
 
   constructor(

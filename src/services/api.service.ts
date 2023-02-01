@@ -1,4 +1,4 @@
-import { ApiData, User } from "../interfaces/Api";
+import { ApiData } from "../interfaces/Api";
 import { Injectable } from "@angular/core";
 import * as localForage from "localforage";
 import { HttpClient } from "@angular/common/http";

@@ -1,0 +1,19 @@
+donut-chart {
+  :host {
+    display: block;
+  }
+
+  svg {
+    overflow: visible;
+    transform-origin: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  path {
+    transform-origin: center;
+    opacity: 1;
+    cursor: pointer;
+  }
+
+}

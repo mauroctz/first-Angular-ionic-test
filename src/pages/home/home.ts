@@ -49,7 +49,6 @@ export class HomePage {
     this.users = response.data;
     this.totalPages = response.total_pages;
     this.currentPage = page;
-    this.apiResponse = response;
   }
 
   nextPage(): void {
@@ -82,14 +81,22 @@ export class HomePage {
           if (u.id === user.id) {
             return {
               ...u,
-              first_name: user.first_name,
               last_name: user.last_name,
+              first_name: user.first_name,
             };
           }
           return { ...u };
         });
-        this.apiResponse.data = [...this.users];
-        this.api.updateItemForage(this.apiResponse, this.currentPage);
+        this.users = [...this.users];
+
+        this.api.updateItemForage(
+          {
+            data: this.users,
+            total_pages: this.totalPages,
+            page: this.currentPage,
+          },
+          this.currentPage
+        );
       }
     });
   }
