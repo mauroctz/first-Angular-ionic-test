@@ -10,9 +10,6 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   async getUsersByPage(page: number): Promise<ApiData> {
-    localForage.keys(function (err, keys) {
-      console.log(keys);
-    });
     try {
       let forageItem = this.getForageItem(`u-p-${page}`);
       if (!forageItem) {

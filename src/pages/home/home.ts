@@ -45,7 +45,6 @@ export class HomePage {
       this.loader.dismiss();
       return data;
     });
-    console.log("response", response);
     this.users = response.data;
     this.totalPages = response.total_pages;
     this.currentPage = page;
