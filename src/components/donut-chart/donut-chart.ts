@@ -19,6 +19,9 @@ export class DonutChartComponent implements OnInit {
   @Input() data: DonutSlice[] = [];
   @Input() sort?: "asc" | "desc"; //asc or desc
   @Input() size?: "full" | "half";
+  @Input() customTotal: number = null;
+
+  sliceSelected: DonutSlice = null;
 
   ngOnInit() {
     this.sortItems(this.sort);
@@ -35,28 +38,39 @@ export class DonutChartComponent implements OnInit {
     });
   }
 
-  calculatePercentages(): void {
-    let sum = this.data.reduce((acc, slice) => acc + slice.value, 0);
+  calculatePercentages(type: string = "value"): void {
+    let sum = this.data.reduce((acc, slice) => acc + slice[type], 0);
+    sum = this.customTotal > sum ? this.customTotal : sum;
     sum = this.size === "half" ? sum * 2 : sum;
-    let total_percent = 100;
     this.data = [
       ...this.data.map((slice) => {
-        let percent = Math.round((slice.value / sum) * total_percent);
-        if (percent === 0) {
-          total_percent = total_percent - 1;
+        let percent = Math.round((slice[type] / sum) * 100);
+        if (percent === 0 && slice["value"] > 0) {
           percent = 1;
         }
-        if (percent === 100) {
-          percent = total_percent - this.data.length + 1;
-        }
-        console.log(`percentage ${percent} - total ${total_percent}`);
+        console.log(`percentage ${percent}`);
 
         return { ...slice, percent: percent };
       }),
     ];
+    if (!this.customTotal) {
+      const sumPercentage = this.data.reduce(
+        (acc, slice) => acc + slice["percent"],
+        0
+      );
+      console.log(
+        `total % = ${sumPercentage}/${this.size === "half" ? 50 : 100}`
+      );
+      if (sumPercentage !== (this.size === "half" ? 50 : 100)) {
+        console.log(`*****normalize***** `);
+
+        this.calculatePercentages("percent");
+      }
+    }
   }
 
-  trackByFn(index: number, slice: DonutSlice) {
-    return slice.id;
+  selectSlice(slice: DonutSlice) {
+    slice.onClickCb && slice.onClickCb();
+    this.sliceSelected = { ...slice };
   }
 }

@@ -1,6 +1,5 @@
 import { DonutSlice } from "./donut-chart-interface";
 import { Pipe, PipeTransform } from "@angular/core";
-
 interface DonutSliceWithCommands extends DonutSlice {
   offset: number;
   commands: string;
@@ -17,10 +16,10 @@ export class DonutChartPipe implements PipeTransform {
     svgSize: number,
     borderSize: number,
     borderRounded: boolean,
-    size: string
+    size: string,
+    sliceSelected: DonutSlice = null
   ): DonutSliceWithCommands[] {
     let previousPercent = 0;
-
     return donutSlices.map((slice) => {
       const sliceWithCommands: DonutSliceWithCommands = {
         ...slice,
@@ -30,7 +29,8 @@ export class DonutChartPipe implements PipeTransform {
           svgSize,
           borderSize,
           borderRounded,
-          size
+          size,
+          sliceSelected
         ),
         offset: previousPercent * 3.6 * -1,
       };
@@ -45,14 +45,17 @@ export class DonutChartPipe implements PipeTransform {
     svgSize: number,
     borderSize: number,
     borderRounded: boolean,
-    size: string
+    size: string,
+    sliceSelected: DonutSlice
   ): string {
     const degrees = this.percentToDegrees(donutSlice.percent, size);
-    const longPathFlag = degrees > 90 ? 1 : 0;
-    const innerRadius = radius - borderSize;
+    const longPathFlag = degrees > (size === "half" ? 90 : 180) ? 1 : 0;
+    const innerRadius =
+      radius -
+      borderSize +
+      (sliceSelected && donutSlice.id === sliceSelected.id ? -2 : 0);
 
     const commands: string[] = [];
-
     commands.push(`M ${svgSize / 2 + radius} ${svgSize / 2}`);
     commands.push(
       `A ${radius} ${radius} 0 ${longPathFlag} 0 ${this.getCoordFromDegrees(
@@ -80,7 +83,6 @@ export class DonutChartPipe implements PipeTransform {
     );
     borderRounded &&
       commands.push(`A 1 1 0 0 ${size === "half" ? 0 : 1} 100 50`);
-
     return commands.join(" ");
   }
 
