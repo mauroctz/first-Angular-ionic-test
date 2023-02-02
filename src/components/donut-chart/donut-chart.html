@@ -1,16 +1,18 @@
-<svg viewBox="0 0 100 100 " *ngIf="data">
-  <path
-    *ngFor="
+<svg viewBox="0 0 100 100">
+  <ng-container *ngIf="data">
+    <path
+      *ngFor="
           let slice of data
-            | slicesWithCommandsAndOffset : radius : height : borderSize: borderRounded: size;
+            | slicesWithCommandsAndOffset : radius : height : borderSize: borderRounded: size: sliceSelected;
           trackBy: trackByFn;
           let index = index
         "
-    [attr.fill]="slice.color"
-    [attr.d]="slice.commands"
-    [attr.transform]="'rotate(' + slice.offset + ')'"
-    (click)="slice.onClickCb ? slice.onClickCb() : null"
-  >
-    <title>{{ slice.label }}</title>
-  </path>
+      [attr.fill]="slice.color"
+      [attr.d]="slice.commands"
+      [attr.transform]="'rotate(' + slice.offset + ')'"
+      (click)="selectSlice(slice)"
+    >
+      <title>{{ slice.label }}</title>
+    </path>
+  </ng-container>
 </svg>
