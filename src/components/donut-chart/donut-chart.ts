@@ -38,10 +38,13 @@ export class DonutChartComponent implements OnInit {
       (acc, slice) => acc + slice[typeValue],
       0
     );
+
     this.sumValues =
       this.customTotal > this.sumValues ? this.customTotal : this.sumValues;
+
     this.sumValues =
       this.chartType === "half" ? this.sumValues * 2 : this.sumValues;
+
     this.data = [
       ...this.data.map((slice) => {
         let percent = Math.round((slice[typeValue] / this.sumValues) * 100);
@@ -50,12 +53,13 @@ export class DonutChartComponent implements OnInit {
           percent = 1;
         }
 
-        console.log(`percentage ${percent}`);
         return { ...slice, percent: percent };
       }),
     ];
+
     if (!this.customTotal) {
       this.sumPercentage = this.getTotalPercentage();
+
       if (this.sumPercentage > this.dimensionChart) {
         this.normalize(typeValue);
       }
@@ -63,31 +67,28 @@ export class DonutChartComponent implements OnInit {
   }
 
   normalize(typeValue: string = "value"): void {
-    console.log(`*****normalize***** `);
     if (typeValue == "percent") {
-      console.log("before : ", this.data);
-
       const orderedArray: DonutSlice[] = this.sortItems("desc");
-      console.log("after : ", this.data);
+
       for (let i = 0; i < this.sumPercentage - this.dimensionChart; i++) {
         this.data = this.data.map((item) => {
           if (item.id === orderedArray[i].id) {
-            console.log({ ...item });
             return { ...item, percent: item.percent - 1 };
           } else {
             return { ...item };
           }
         });
       }
-      console.log(this.data);
 
       return;
     }
+
     this.calculatePercentages("percent");
   }
 
   sortItems(sort: String): DonutSlice[] {
     let array: DonutSlice[] = [...this.data];
+
     return array.sort((a, b) => {
       if (sort === "asc") {
         return a.value < b.value ? -1 : a.value > b.value ? 1 : 0;
@@ -99,7 +100,7 @@ export class DonutChartComponent implements OnInit {
 
   getTotalPercentage(): number {
     let total = this.data.reduce((acc, slice) => acc + slice["percent"], 0);
-    console.log(`total ${total}`);
+
     return total;
   }
   getDimensionChart(): void {

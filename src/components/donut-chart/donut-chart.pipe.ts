@@ -157,7 +157,6 @@ export class DonutChartPipe implements PipeTransform {
 
   sumTotalPercentage(donutSlices: DonutSlice[]): number {
     let total = donutSlices.reduce((acc, slice) => acc + slice["percent"], 0);
-    console.log(`total ${total}`);
     return total;
   }
 

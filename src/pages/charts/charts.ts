@@ -49,8 +49,4 @@ export class ChartsPage {
     },
   ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ChartsPage");
-  }
 }
