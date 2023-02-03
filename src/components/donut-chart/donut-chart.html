@@ -1,9 +1,10 @@
 <svg viewBox="0 0 100 100">
   <ng-container *ngIf="data">
+    <!-- <circle cx="50" cy="50" r="50" /> -->
     <path
       *ngFor="
           let slice of data
-            | slicesWithCommandsAndOffset : radius : height : borderSize: borderRounded: size: sliceSelected;
+            | slicesWithCommandsAndOffset : svgRadius : svgSize : borderSize: borderRounded: chartType: sliceSelected;
           trackBy: trackByFn;
           let index = index
         "
@@ -16,3 +17,7 @@
     </path>
   </ng-container>
 </svg>
+<!-- <svg viewBox="0 0 100 100">
+  <path d=" M 0 50 a 1 1 0 1 0 100 0 a 1 1 0 1 0 -100 0" fill="blue" />
+  <path d="M 10,50 a 1,1 0 1,0 80,0 a 1,1 0 1,0 -80,0" fill="white" />
+</svg> -->

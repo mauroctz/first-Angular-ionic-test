@@ -6,9 +6,9 @@
   <donut-chart
     [data]="data"
     [borderSize]="10"
-    [size]="'half'"
-    [borderRounded]="false"
-    [customTotal]="150"
+    [borderRounded]="true"
+    [chartType]="'hlf'"
+    [customTotal]="22"
   ></donut-chart>
   <p>{{ sliceSelected$ | async }}</p>
 </ion-content>
