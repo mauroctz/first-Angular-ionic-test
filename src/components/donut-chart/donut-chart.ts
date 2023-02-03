@@ -18,11 +18,13 @@ export class DonutChartComponent implements OnInit {
   @Input() sort?: "asc" | "desc" = null;
   @Input() chartType?: "full" | "half";
   @Input() customTotal: number = null;
+  @Input() selectable: boolean = true;
   private svgRadius: number = 50;
   private svgSize: number = 100;
-  private sliceSelected: DonutSlice = null;
+  sliceSelected: DonutSlice = null;
   private dimensionChart: number = 100;
   private sumPercentage: number = 0;
+  private sumValues: number = 0;
 
   ngOnInit() {
     if (this.sort != null) this.data = [...this.sortItems(this.sort)];
@@ -32,12 +34,17 @@ export class DonutChartComponent implements OnInit {
   }
 
   calculatePercentages(typeValue: string = "value"): void {
-    let sum = this.data.reduce((acc, slice) => acc + slice[typeValue], 0);
-    sum = this.customTotal > sum ? this.customTotal : sum;
-    sum = this.chartType === "half" ? sum * 2 : sum;
+    this.sumValues = this.data.reduce(
+      (acc, slice) => acc + slice[typeValue],
+      0
+    );
+    this.sumValues =
+      this.customTotal > this.sumValues ? this.customTotal : this.sumValues;
+    this.sumValues =
+      this.chartType === "half" ? this.sumValues * 2 : this.sumValues;
     this.data = [
       ...this.data.map((slice) => {
-        let percent = Math.round((slice[typeValue] / sum) * 100);
+        let percent = Math.round((slice[typeValue] / this.sumValues) * 100);
 
         if (percent === 0 && slice["value"] > 0) {
           percent = 1;

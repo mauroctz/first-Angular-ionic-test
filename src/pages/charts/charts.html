@@ -5,10 +5,11 @@
 <ion-content padding>
   <donut-chart
     [data]="data"
-    [borderSize]="10"
+    [borderSize]="20"
     [borderRounded]="true"
-    [chartType]="'hlf'"
-    [customTotal]="22"
+    [chartType]="'half'"
+    [selectable]="true"
+    [customTotal]="200"
   ></donut-chart>
   <p>{{ sliceSelected$ | async }}</p>
 </ion-content>

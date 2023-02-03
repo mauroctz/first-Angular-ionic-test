@@ -30,7 +30,7 @@ export class ChartsPage {
       id: 21,
       value: 20,
       color: "DarkOrchid",
-      label: "Slice 2",
+      label: "Slice 0",
       onClickCb: () => this.sliceSelected$.next("Slice 2 clicked 👍🏼"),
     },
     {

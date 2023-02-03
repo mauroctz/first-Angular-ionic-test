@@ -4,20 +4,16 @@
     <path
       *ngFor="
           let slice of data
-            | slicesWithCommandsAndOffset : svgRadius : svgSize : borderSize: borderRounded: chartType: sliceSelected;
+            | slicesWithCommandsAndOffset : svgRadius : svgSize : borderSize : borderRounded : chartType : selectable :sliceSelected ;
           trackBy: trackByFn;
           let index = index
         "
+      [attr.id]="'path-'+slice.id"
       [attr.fill]="slice.color"
       [attr.d]="slice.commands"
       [attr.transform]="'rotate(' + slice.offset + ')'"
+      [class.selected]="slice.selected"
       (click)="selectSlice(slice)"
-    >
-      <title>{{ slice.label }}</title>
-    </path>
+    ></path>
   </ng-container>
 </svg>
-<!-- <svg viewBox="0 0 100 100">
-  <path d=" M 0 50 a 1 1 0 1 0 100 0 a 1 1 0 1 0 -100 0" fill="blue" />
-  <path d="M 10,50 a 1,1 0 1,0 80,0 a 1,1 0 1,0 -80,0" fill="white" />
-</svg> -->
