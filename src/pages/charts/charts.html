@@ -5,11 +5,22 @@
 <ion-content padding>
   <donut-chart
     [data]="data"
-    [borderSize]="20"
+    [borderSize]="10"
     [borderRounded]="true"
-    [chartType]="'half'"
+    [chartType]="'full'"
     [selectable]="true"
-    [customTotal]="200"
+    [selectedItem]="selectedItem"
+    (selectSliceEvent)="selectSliceEvent($event)"
   ></donut-chart>
   <p>{{ sliceSelected$ | async }}</p>
+  <div class="legenda">
+    <!-- Generated template for the CardUserComponent component -->
+
+    <ion-card *ngFor="let item of data" (click)="selectCard(item)">
+      <ion-item>
+        <h2>{{ item.label }}</h2>
+        <p>{{value}}</p>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

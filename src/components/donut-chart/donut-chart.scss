@@ -12,16 +12,13 @@ donut-chart {
 
   path {
     transform-origin: center;
-    opacity: .7;
     cursor: pointer;
-
+    filter:contrast(100%);
     &:hover,
     &.selected {
-    opacity: 1;
+    filter:contrast(60%);
+
     }
   }
-
-
-
 
 }

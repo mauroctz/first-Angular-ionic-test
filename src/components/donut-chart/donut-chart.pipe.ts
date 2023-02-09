@@ -25,6 +25,10 @@ export class DonutChartPipe implements PipeTransform {
     let validSlices: DonutSlice[] = this.validSlices(donutSlices);
     let totalPercentage = this.sumTotalPercentage(validSlices);
 
+    console.log("slice selected", sliceSelected);
+    //todo check custom total quando c'è un solo elemento
+    //todo check quando tutti i valori sono  0 o  l'array è vuoto
+
     if (validSlices.length > 1 || chartType === "half") {
       return validSlices.map((slice, index) => {
         const sliceWithCommands: DonutSliceWithCommands = {

@@ -2,9 +2,12 @@ import { DonutSlice } from "./donut-chart-interface";
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from "@angular/core";
+import { parseConfigFileTextToJson } from "typescript";
 
 @Component({
   selector: "donut-chart",
@@ -19,6 +22,9 @@ export class DonutChartComponent implements OnInit {
   @Input() chartType?: "full" | "half";
   @Input() customTotal: number = null;
   @Input() selectable: boolean = true;
+  @Input() selectedItem: DonutSlice = null;
+  @Output() selectSliceEvent: EventEmitter<DonutSlice> =
+    new EventEmitter<DonutSlice>();
   private svgRadius: number = 50;
   private svgSize: number = 100;
   sliceSelected: DonutSlice = null;
@@ -27,8 +33,12 @@ export class DonutChartComponent implements OnInit {
   private sumValues: number = 0;
 
   ngOnInit() {
-    if (this.sort != null) this.data = [...this.sortItems(this.sort)];
+    // console.log("init-selected item", this.selectedItem);
+    // if (this.selectedItem != null) {
+    //   this.selectSlice(this.selectedItem);
+    // }
 
+    if (this.sort != null) this.data = [...this.sortItems(this.sort)];
     this.getDimensionChart();
     this.calculatePercentages();
   }
@@ -107,8 +117,7 @@ export class DonutChartComponent implements OnInit {
     this.dimensionChart = this.chartType === "half" ? 50 : 100;
   }
 
-  selectSlice(slice: DonutSlice) {
-    slice.onClickCb && slice.onClickCb();
-    this.sliceSelected = { ...slice };
+  selectSlice(slice: DonutSlice): void {
+    this.selectSliceEvent.emit({ ...slice });
   }
 }

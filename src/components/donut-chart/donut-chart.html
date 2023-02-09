@@ -4,7 +4,7 @@
     <path
       *ngFor="
           let slice of data
-            | slicesWithCommandsAndOffset : svgRadius : svgSize : borderSize : borderRounded : chartType : selectable :sliceSelected ;
+            | slicesWithCommandsAndOffset : svgRadius : svgSize : borderSize : borderRounded : chartType : selectable :itemSelected :sliceSelected ;
           trackBy: trackByFn;
           let index = index
         "
@@ -12,6 +12,7 @@
       [attr.fill]="slice.color"
       [attr.d]="slice.commands"
       [attr.transform]="'rotate(' + slice.offset + ')'"
+      [class.notselected]="!slice.selected"
       [class.selected]="slice.selected"
       (click)="selectSlice(slice)"
     ></path>
